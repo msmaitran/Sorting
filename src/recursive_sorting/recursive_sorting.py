@@ -3,39 +3,48 @@ def merge( arrA, arrB ):
     elements = len( arrA ) + len( arrB )
     merged_arr = [0] * elements
     # TO-DO
-    i = 0
-    j = 0
-    k = 0
-    while i < len(arrA) and j < len(arrB):
-        if arrA[i] < arrB[j]:
-            merged_arr[k] = arrA[i]
-            i += 1
-        else:
-            merged_arr[k] = arrB[j]
-            j += 1
-        k += 1
+    # put back together here
+    # sorting happens here
 
-    while i < len(arrA):
-        merged_arr[k] = arrA[i]
-        i += 1
-        k += 1
-
-    while j < len(arrB):
-        merged_arr[k] = arrB[j]
-        j += 1
-        k += 1
+    a = 0
+    b = 0
+    
+    for k in range(0, elements):
+       # compare a and b
+       # if a is out of range, push b and iterate
+       if a >= len(arrA): # we're done with a, push b
+           merged_arr[k] = arrB[b]
+           b += 1
+       # if b is out of range, push a and iterate
+       elif b >= len(arrB): 
+           merged_arr[k] = arrA[a]
+           a += 1
+       # if a is smaller, put is in array and iterate both
+       elif arrA[a] < arrB[b]:
+           merged_arr[k] = arrA[a]
+           a += 1
+       # if b is smaller, put it in array and iterate both
+       else:
+           merged_arr[k] = arrB[b]
+           b += 1
     return merged_arr
 
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # TO-DO
-    if len(arr) <= 1:
-        return arr
-    mid = int(len(arr) / 2)
-    arr1 = merge_sort(arr[0:mid])
-    arr2 = merge_sort(arr[mid:])
-    arr = merge(arr1, arr2)
+
+    # split here
+    # base condition
+    # if array size >= 1
+    if len(arr) > 1:
+        # find the middle of arr
+        # sort stuff in left and put stuff  to the left in left
+        left = merge_sort(arr[ 0 : len(arr) // 2])
+    # sort stuff in right and put stuff to the right in right
+        right = merge_sort(arr[len(arr) // 2 : ])
+    # merge left and right
+        arr = merge(left, right)
     return arr
 
 # STRETCH: implement an in-place merge sort algorithm
